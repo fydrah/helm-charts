@@ -1,0 +1,12 @@
+apiVersion: v1
+appVersion: 1.14.1.5488-cc260c476
+description: Plex Helm Chart
+name: plex
+version: 1.1.0
+icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+maintainer:
+- email: flav.hardy@gmail.com
+  name: fydrah
+keywords:
+- plex
+- helm

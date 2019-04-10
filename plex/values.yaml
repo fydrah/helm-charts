@@ -1,0 +1,145 @@
+# Default values for plex.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+plexClaim: "claim-XXXXXXXX"
+advertiseAddress: "http://plex.example.org"
+
+replicaCount: 1
+
+image:
+  repository: plexinc/pms-docker
+  tag: 1.14.1.5488-cc260c476
+  pullPolicy: Always
+
+service:
+  web:
+    type: ClusterIP
+    externalIPs: []
+    port: 32400
+  stream:
+    type: ClusterIP
+    externalIPs: []
+    ports:
+      udp:
+      ## Access to the Plex DLNA Server
+      - name: dlna
+        port: 1900
+      ## GDM: This is used to allow Plex apps and Servers to find
+      ## each other automatically on a local network
+      ## Current GDM network discovery
+      #- name: gdm0
+      #  port: 32410
+      ## Current GDM network discovery
+      #- name: gdm1
+      #  port: 32412
+      ## Current GDM network discovery
+      #- name: gdm2
+      #  port: 32413
+      ## Current GDM network discovery
+      #- name: gdm3
+      #  port: 32414
+      tcp:
+      ## Controlling Plex Home Theater via Plex Companion
+      #- name: home-theater
+      #  port: 3005
+      ## Controlling Plex for Roku via Plex Companion
+      #- name: roku
+      #  port: 8324
+      ## Access to the Plex DLNA Server
+      - name: dlna
+        port: 32469
+
+ingress:
+  enabled: false
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  path: /
+  hosts: []
+  tls: []
+  #  - secretName: plex-example-org-tls
+  #    hosts:
+  #      - plex.example.org
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+persistence:
+  config:
+    enabled: false
+    accessMode: ReadWriteOnce
+    size: 100Mi
+    labels: {}
+    #   name: value
+    ## A manually managed Persistent Volume and Claim
+    ## Requires persistence.enabled: true
+    ## If defined, PVC must be created manually before volume will be bound
+    # existingClaim:
+
+    ## Config Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+  data:
+    enabled: false
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    labels: {}
+    #   name: value
+    ## A manually managed Persistent Volume and Claim
+    ## Requires persistence.enabled: true
+    ## If defined, PVC must be created manually before volume will be bound
+    # existingClaim:
+
+    ## Data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+  transcode:
+    enabled: false
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    labels: {}
+    ## A manually managed Persistent Volume and Claim
+    ## Requires persistence.enabled: true
+    ## If defined, PVC must be created manually before volume will be bound
+    # existingClaim:
+
+    ## Transcode Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+
+process:
+  uid: 1001
+  gid: 1001

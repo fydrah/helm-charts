@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "plex.fullname" . }}
+  labels:
+    app: {{ template "plex.name" . }}
+    chart: {{ template "plex.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.web.type }}
+{{- if .Values.service.web.externalIPs }}
+  externalIPs:
+{{ toYaml .Values.service.web.externalIPs | indent 4 }}
+{{- end }}
+  ports:
+    - port: {{ .Values.service.web.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "plex.name" . }}
+    release: {{ .Release.Name }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "plex.fullname" . }}-stream
+  labels:
+    app: {{ template "plex.name" . }}
+    chart: {{ template "plex.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.stream.type }}
+{{- if .Values.service.stream.externalIPs }}
+  externalIPs:
+{{ toYaml .Values.service.stream.externalIPs | indent 4 }}
+{{- end }}
+  ports:
+    {{- range .Values.service.stream.ports.tcp }}
+    - name: {{ .name }}-tcp
+      targetPort: {{ .name }}-tcp
+      protocol: TCP
+      port: {{ .port }}
+    {{- end }}
+    {{- range .Values.service.stream.ports.udp }}
+    - name: {{ .name }}-udp
+      targetPort: {{ .name }}-udp
+      protocol: UDP
+      port: {{ .port }}
+    {{- end }}
+  selector:
+    app: {{ template "plex.name" . }}
+    release: {{ .Release.Name }}
