@@ -1,0 +1,12 @@
+apiVersion: v1
+appVersion: 145
+description: Transmission Helm Chart
+name: transmission
+version: 1.1.0
+icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+maintainer:
+- email: flav.hardy@gmail.com
+  name: fydrah
+keywords:
+- transmission
+- helm

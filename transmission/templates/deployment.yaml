@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "..fullname" . }}
+  labels:
+    app: {{ template "..name" . }}
+    chart: {{ template "..chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "..name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "..name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      serviceAccount: {{ template "..fullname" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: PUID
+              value: "{{ .Values.process.uid }}"
+            - name: PGID
+              value: "{{ .Values.process.gid }}"
+          ports:
+            - name: webui
+              containerPort: 9091
+              protocol: TCP
+            - name: peer-tcp
+              containerPort: 51413
+              protocol: TCP
+            - name: peer-udp
+              containerPort: 51413
+              protocol: UDP
+          livenessProbe:
+            tcpSocket:
+              port: 9091
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 9091
+            initialDelaySeconds: 5
+            periodSeconds: 2
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /downloads
+              name: downloads
+            - mountPath: /watch
+              name: watch
+      volumes:
+      - name: config
+      {{- if .Values.persistence.config.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.config.existingClaim | default (printf "%s-%s" (include "..fullname" .) "config") }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      - name: downloads
+      {{- if .Values.persistence.downloads.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.downloads.existingClaim | default (printf "%s-%s" (include "..fullname" .) "downloads") }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      - name: watch
+      {{- if .Values.persistence.watch.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.watch.existingClaim | default (printf "%s-%s" (include "..fullname" .) "watch") }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
