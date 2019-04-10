@@ -2,10 +2,10 @@
 
 ## Repository
 
-Helm charts are currently hosted at https://charts.fhardy.fr
+Helm charts are currently hosted at https://registry.fhardy.fr
 
 ```shell
-helm repo add fhardy https://charts.fhardy.fr
+helm repo add fhardy-stable https://registry.fhardy.fr/chartrepo/stable
 helm repo update
 ```
 
@@ -16,19 +16,20 @@ Available charts:
 * [Plex](./plex)
 
     ```shell
-    helm install fhardy/plex
+    helm install fhardy-stable/plex
     ```
 
 * [Transmission](./transmission)
 
     ```shell
-    helm install fhardy/transmission
+    helm install fhardy-stable/transmission
     ```
 
 ## Contributors
 
-
 ### Upload a chart
+
+**repo admin only**
 
 1. Update chart `version` (and `appVersion` if necessary) in `Chart.yaml` file
 2. Make sure you have [helm push](https://github.com/chartmuseum/helm-push#install) plugin installed
