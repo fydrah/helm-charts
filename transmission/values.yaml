@@ -6,8 +6,8 @@ replicaCount: 1
 
 image:
   repository: linuxserver/transmission
-  tag: 145
-  pullPolicy: Always
+  tag: 2.94-r1-ls11
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
