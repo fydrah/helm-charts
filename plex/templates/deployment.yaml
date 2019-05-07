@@ -47,19 +47,17 @@ spec:
               containerPort: {{ .port }}
               protocol: UDP
             {{- end }}
-              #          livenessProbe:
-              #            httpGet:
-              #              path: /
-              #              port: http
-              #          readinessProbe:
-              #            httpGet:
-              #              path: /
-              #              port: http
+          livenessProbe:
+            httpGet:
+              path: /identity
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /identity
+              port: http
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           volumeMounts:
-            - mountPath: /tmp
-              name: tmp
             - mountPath: /config
               name: config
             - mountPath: /data
@@ -67,9 +65,9 @@ spec:
               readOnly: true
             - mountPath: /transcode
               name: transcode
+            - mountPath: /tmp
+              name: transcode
       volumes:
-      - name: tmp
-        emptyDir: {}
       - name: config
       {{- if .Values.persistence.config.enabled }}
         persistentVolumeClaim:
