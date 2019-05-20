@@ -9,9 +9,19 @@ image:
   tag: 2.94-r1-ls11
   pullPolicy: IfNotPresent
 
+
 service:
-  type: ClusterIP
-  port: 80
+  web:
+    type: ClusterIP
+    port: 80
+    externalIPs: []
+
+  peer:
+    type: ClusterIP
+    externalIPs: []
+    ports:
+      tcp: 51413
+      udp: 51413
 
 ingress:
   enabled: false
@@ -22,6 +32,7 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

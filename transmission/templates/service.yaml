@@ -8,9 +8,13 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.service.web.type }}
+{{- if .Values.service.web.externalIPs }}
+  externalIPs:
+{{ toYaml .Values.service.web.externalIPs | indent 4 }}
+{{- end }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ .Values.service.web.port }}
       targetPort: webui
       protocol: TCP
       name: webui
@@ -30,14 +34,18 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.service.peer.type }}
+{{- if .Values.service.peer.externalIPs }}
+  externalIPs:
+{{ toYaml .Values.service.peer.externalIPs | indent 4 }}
+{{- end }}
   ports:
     - name: peer-tcp
-      port: 51413
+      port: {{ .Values.service.peer.ports.tcp }}
       targetPort: peer-tcp
       protocol: TCP
     - name: peer-udp
-      port: 51413
+      port: {{ .Values.service.peer.ports.udp }}
       targetPort: peer-udp
       protocol: UDP
   selector:
