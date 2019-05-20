@@ -1,0 +1,4 @@
+Namespaces created:
+{{ range .Values.namespaces }}
+* {{ .name }}
+{{ end }}

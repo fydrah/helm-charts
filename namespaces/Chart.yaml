@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Create and manage namespaces with default rules
+name: namespaces
+version: 1.0.0
