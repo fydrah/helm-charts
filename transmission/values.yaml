@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: linuxserver/transmission
-  tag: 2.94-r1-ls11
+  tag: 2.94-r2-ls34
   pullPolicy: IfNotPresent
 
 
