@@ -9,7 +9,7 @@ replicaCount: 1
 
 image:
   repository: plexinc/pms-docker
-  tag: 1.15.4.993-bb4a2cb6c
+  tag: 1.18.1.2019-c186313fe
   pullPolicy: IfNotPresent
 
 service:

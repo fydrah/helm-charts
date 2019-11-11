@@ -1,8 +1,8 @@
 apiVersion: v1
-appVersion: 1.15.4.993-bb4a2cb6c
+appVersion: 1.18.1.2019-c186313fe
 description: Plex Helm Chart
 name: plex
-version: 1.4.0
+version: 1.5.0
 icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
 maintainer:
 - email: flav.hardy@gmail.com
