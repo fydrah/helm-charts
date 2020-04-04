@@ -1,12 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "plex.fullname" . }}
+  name: {{ include "plex.fullname" . }}
   labels:
-    app: {{ template "plex.name" . }}
-    chart: {{ template "plex.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "plex.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.web.type }}
 {{- if .Values.service.web.externalIPs }}
@@ -18,28 +15,6 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-  selector:
-    app: {{ template "plex.name" . }}
-    release: {{ .Release.Name }}
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ template "plex.fullname" . }}-stream
-  labels:
-    app: {{ template "plex.name" . }}
-    chart: {{ template "plex.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  type: {{ .Values.service.stream.type }}
-{{- if .Values.service.stream.externalIPs }}
-  externalIPs:
-{{ toYaml .Values.service.stream.externalIPs | indent 4 }}
-{{- end }}
-  ports:
     {{- range .Values.service.stream.ports.tcp }}
     - name: {{ .name }}-tcp
       targetPort: {{ .name }}-tcp
@@ -53,5 +28,4 @@ spec:
       port: {{ .port }}
     {{- end }}
   selector:
-    app: {{ template "plex.name" . }}
-    release: {{ .Release.Name }}
+    {{- include "plex.selectorLabels" . | nindent 4 }}

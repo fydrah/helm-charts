@@ -2,15 +2,12 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "plex.fullname" . }}-config
+  name: {{ include "plex.fullname" . }}-config
   labels:
-    app: {{ template "plex.name" . }}
-    chart: {{ template "plex.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-{{- if .Values.persistence.config.labels }}
-{{ toYaml .Values.persistence.config.labels | indent 4 }}
-{{- end }}
+    {{- include "plex.labels" . | nindent 4 }}
+    {{- if .Values.persistence.config.labels }}
+      {{ toYaml .Values.persistence.config.labels | indent 4 }}
+    {{- end }}
 spec:
   accessModes:
     - {{ .Values.persistence.config.accessMode | quote }}

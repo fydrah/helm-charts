@@ -2,15 +2,12 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "plex.fullname" . }}-transcode
+  name: {{ include "plex.fullname" . }}-transcode
   labels:
-    app: {{ template "plex.name" . }}
-    chart: {{ template "plex.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-{{- if .Values.persistence.transcode.labels }}
-{{ toYaml .Values.persistence.transcode.labels | indent 4 }}
-{{- end }}
+    {{- include "plex.labels" . | nindent 4 }}
+    {{- if .Values.persistence.transcode.labels }}
+      {{ toYaml .Values.persistence.transcode.labels | indent 4 }}
+    {{- end }}
 spec:
   accessModes:
     - {{ .Values.persistence.transcode.accessMode | quote }}

@@ -1,41 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "plex.fullname" . }}
+  name: {{ include "plex.fullname" . }}
   labels:
-    app: {{ template "plex.name" . }}
-    chart: {{ template "plex.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "plex.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "plex.name" . }}
-      release: {{ .Release.Name }}
+      {{- include "plex.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ template "plex.name" . }}
-        release: {{ .Release.Name }}
+        {{- include "plex.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccount: {{ template "plex.fullname" . }}
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "plex.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ include "plex.fullname" . }}
           env:
             - name: PLEX_UID
               value: "{{ .Values.process.uid }}"
             - name: PLEX_GID
               value: "{{ .Values.process.gid }}"
-            - name: ADVERTISE_IP
-              value: "{{ .Values.advertiseIP }}"
-            - name: PLEX_CLAIM
-              value: "{{ .Values.plexClaim }}"
+            {{- with .Values.env }}
+              {{- toYaml . | indent 12 }}
+            {{- end }}
           ports:
             - name: http
-              containerPort: 32400
+              containerPort: {{ .Values.service.web.port }}
               protocol: TCP
             {{- range .Values.service.stream.ports.tcp }}
             - name: {{ .name }}-tcp
@@ -56,7 +61,7 @@ spec:
               path: /identity
               port: http
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+            {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /config
               name: config
@@ -89,15 +94,15 @@ spec:
       {{- else }}
         emptyDir: {}
       {{- end }}
-    {{- with .Values.nodeSelector }}
+      {{- with .Values.nodeSelector }}
       nodeSelector:
-{{ toYaml . | indent 8 }}
-    {{- end }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     {{- with .Values.affinity }}
       affinity:
-{{ toYaml . | indent 8 }}
+        {{- toYaml . | nindent 8 }}
     {{- end }}
     {{- with .Values.tolerations }}
       tolerations:
-{{ toYaml . | indent 8 }}
+        {{- toYaml . | nindent 8 }}
     {{- end }}

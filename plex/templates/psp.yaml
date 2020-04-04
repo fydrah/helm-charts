@@ -1,0 +1,32 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ include "plex.fullname" . }}
+  labels:
+    {{- include "plex.labels" . | nindent 4 }}
+spec:
+  allowPrivilegeEscalation: false
+  forbiddenSysctls:
+  - '*'
+  requiredDropCapabilities:
+  - ALL
+  fsGroup:
+    ranges:
+    - max: 65535
+      min: 1
+    rule: RunAsAny
+  hostNetwork: false
+  hostPorts: []
+  runAsUser:
+    rule: RunAsAny
+  volumes:
+  - configMap
+  - secret
+  - persistentVolumeClaim
+  supplementalGroups:
+    ranges:
+    - max: 65535
+      min: 1
+    rule: MustRunAs
+  seLinux:
+    rule: RunAsAny
