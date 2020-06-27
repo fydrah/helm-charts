@@ -23,23 +23,30 @@ esac
 
 for c in ${CHARTS}
 do
-  CHART_TAGGED_VERSIONS=""
-  mkdir -p .deploy-${c}
-  CHART_TAGGED_VERSIONS=$(ls .deploy-${c}/${c}* | grep -oE "${c}-[0-9].[0-9].[0-9]")
-  [ $AUTO_YES -ne 1 ] && echo "Deploy (${CHART_TAGGED_VERSIONS}) ? [y/N]" && read DEPLOY
+  CVERSION=$(yq read ${c}/Chart.yaml version)
+  rm -rf .deploy && mkdir -p .deploy
+  [ $AUTO_YES -ne 1 ] && echo "Deploy (${c}-${CVERSION}) ? [y/N]" && read DEPLOY
   if [ "${DEPLOY}" == "y" ] || [ $AUTO_YES -eq 1 ]
   then
+    helm package ${c} -d .deploy/
+    git tag ${c}-${CVERSION}
+    if [ $? -ne 0 ]
+    then
+      echo "Tag ${c}-${CVERSION} exists"
+    else
+      git push origin ${c}-${CVERSION}
+    fi
     UUID=$(uuidgen)
-    upload=$(cr upload --package-path .deploy-${c}/ 2>&1)
-    if [ $? -eq 1 ]
+    upload=$(cr upload --package-path .deploy 2>&1)
+    if [ $? -ne 0 ]
     then
       echo $upload | grep -q "already_exists"
-      [ $? -eq 1 ] && echo "Error: $(echo $upload)" && exit 1
+      [ $? -ne 0 ] && echo "Error: $(echo $upload)" && exit 1
     fi
     mkdir -p .index-${UUID}
-    cr index --package-path .deploy-${c}/ -i .index-${UUID}/index.yaml
+    cr index --package-path .deploy/ -i .index-${UUID}/index.yaml
     yq m -i index.yaml .index-${UUID}/index.yaml
-    echo "Chart ${c} (${CHART_TAGGED_VERSIONS}) uploaded and indexed"
+    echo "Chart ${c}-${CVERSION} uploaded and indexed"
     rm -rf .index-${UUID}
   fi
 done
