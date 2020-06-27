@@ -1,0 +1,22 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  image: kindest/node:v1.17.0
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+        authorization-mode: "AlwaysAllow"
+  extraPortMappings:
+  # http
+  - containerPort: 80
+    hostPort: 80
+  # https
+  - containerPort: 443
+    hostPort: 443
+  # Used plex for ExternalIP svc tests
+  - containerPort: 32400
+    hostPort: 32400

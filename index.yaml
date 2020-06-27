@@ -1,0 +1,214 @@
+apiVersion: v1
+entries:
+  plex:
+  - apiVersion: v2
+    appVersion: 1.19.4.2935-79e214ead
+    created: "2020-06-27T15:23:25.189223196+02:00"
+    description: Plex Helm Chart
+    digest: c56bd822f0519cfe1086ba084ee3ec8e14b32ea7253f7600eb6c339340ddbacd
+    icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+    keywords:
+    - plex
+    - helm
+    name: plex
+    type: application
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/plex-2.0.0/plex-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v1
+    appVersion: 1.18.9.2578-513b381af
+    created: "2020-06-27T16:09:58.686347767+02:00"
+    description: Plex Helm Chart
+    digest: d95899ba238e9cff0e35191486eb6f55234840c1006a8f9af28b55c0ce4aa997
+    icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+    keywords:
+    - plex
+    - helm
+    name: plex
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/plex-1.7.0/plex-1.7.0.tgz
+    version: 1.7.0
+  - apiVersion: v1
+    appVersion: 1.18.6.2368-97add474d
+    created: "2020-06-27T16:09:58.479960759+02:00"
+    description: Plex Helm Chart
+    digest: a8a0845b809d8ec9f68545b587d0ffaa1ff7ff3815135d39567a7a2f5b971e7d
+    icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+    keywords:
+    - plex
+    - helm
+    name: plex
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/plex-1.6.0/plex-1.6.0.tgz
+    version: 1.6.0
+  - apiVersion: v1
+    appVersion: 1.18.1.2019-c186313fe
+    created: "2020-06-27T16:09:58.274629529+02:00"
+    description: Plex Helm Chart
+    digest: 24323cb04c6602267c0021f917911b515fffdc2d8b57a7b43623a8cd03187c56
+    icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+    keywords:
+    - plex
+    - helm
+    name: plex
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/plex-1.5.0/plex-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v1
+    appVersion: 1.15.4.993-bb4a2cb6c
+    created: "2020-06-27T16:09:57.756408278+02:00"
+    description: Plex Helm Chart
+    digest: 21753db6772894acbb19ab0866fe7441aa554335fe99c07d795560852a535a07
+    icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+    keywords:
+    - plex
+    - helm
+    name: plex
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/plex-1.4.0/plex-1.4.0.tgz
+    version: 1.4.0
+  - apiVersion: v1
+    appVersion: 1.15.4.993-bb4a2cb6c
+    created: "2020-06-27T16:09:57.55537018+02:00"
+    description: Plex Helm Chart
+    digest: f270a86a392a69c164497424fffcca9d17773e79db9d31fcdbb37df8c21b9a58
+    icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+    keywords:
+    - plex
+    - helm
+    name: plex
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/plex-1.3.0/plex-1.3.0.tgz
+    version: 1.3.0
+  - apiVersion: v1
+    appVersion: 1.15.3.876-ad6e39743
+    created: "2020-06-27T16:09:57.291512631+02:00"
+    description: Plex Helm Chart
+    digest: ed314074e268f5bbe8c8cf07841202dd52350fd333d0e2aa4b730992fa4b5958
+    icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+    keywords:
+    - plex
+    - helm
+    name: plex
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/plex-1.2.0/plex-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v1
+    appVersion: 1.14.1.5488-cc260c476
+    created: "2020-06-27T16:09:57.108394933+02:00"
+    description: Plex Helm Chart
+    digest: 1b3ad0b03790eaaaf40abeba73560da06465c63ebd9722a86fa1d3e9f0aca34e
+    icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+    keywords:
+    - plex
+    - helm
+    name: plex
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/plex-1.1.0/plex-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v1
+    appVersion: 1.14.1.5488-cc260c476
+    created: "2020-06-27T16:09:56.899389766+02:00"
+    description: Plex Helm Chart
+    digest: 2d72354ac4401b3a3ed9f1800b8d3189e73af30c7cd5f2f886c7af128fec97ed
+    icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+    keywords:
+    - plex
+    - helm
+    name: plex
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/plex-1.0.0/plex-1.0.0.tgz
+    version: 1.0.0
+  transmission:
+  - apiVersion: v1
+    appVersion: 2.94-r2-ls42
+    created: "2020-06-27T15:24:11.075385318+02:00"
+    description: Transmission Helm Chart
+    digest: 21ded12695ee05148ee612d4bdc837b0cb89bb8001a107969b4a67aa1b5f3405
+    icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+    keywords:
+    - transmission
+    - helm
+    name: transmission
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/transmission-1.6.0/transmission-1.6.0.tgz
+    version: 1.6.0
+  - apiVersion: v1
+    appVersion: 2.94-r2-ls42
+    created: "2020-06-27T16:22:09.72386784+02:00"
+    description: Transmission Helm Chart
+    digest: 6c72848869c8e7853a830c21f41feda0e47601d9062b7cd821ce2a2d8a33976a
+    icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+    keywords:
+    - transmission
+    - helm
+    name: transmission
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/transmission-1.5.0/transmission-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v1
+    appVersion: 2.94-r2-ls34
+    created: "2020-06-27T16:22:09.520995473+02:00"
+    description: Transmission Helm Chart
+    digest: 01aa0e37724ad2292c956482cbe615f2ad1ffef45a57ac69a45139db3b31a5d5
+    icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+    keywords:
+    - transmission
+    - helm
+    name: transmission
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/transmission-1.4.0/transmission-1.4.0.tgz
+    version: 1.4.0
+  - apiVersion: v1
+    appVersion: 2.94-r1-ls11
+    created: "2020-06-27T16:22:09.212311806+02:00"
+    description: Transmission Helm Chart
+    digest: 6585c44dcaea74ed25f8b4e09c9c82ddacf71dd41dbf9031ff54a4ebe2ffe67b
+    icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+    keywords:
+    - transmission
+    - helm
+    name: transmission
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/transmission-1.3.0/transmission-1.3.0.tgz
+    version: 1.3.0
+  - apiVersion: v1
+    appVersion: 2.94-r1-ls11
+    created: "2020-06-27T16:22:09.010531985+02:00"
+    description: Transmission Helm Chart
+    digest: a1c09e93bf9aa03e8ed09d42a9575858107d5fedad499fbb4e0cec0ea2539699
+    icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+    keywords:
+    - transmission
+    - helm
+    name: transmission
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/transmission-1.2.0/transmission-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v1
+    appVersion: "145"
+    created: "2020-06-27T16:22:08.743737236+02:00"
+    description: Transmission Helm Chart
+    digest: f7522ede2849b3b19b888290a30d9a02068a798e310f4c9a5d490bb344f8dae6
+    icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+    keywords:
+    - transmission
+    - helm
+    name: transmission
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/transmission-1.1.0/transmission-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v1
+    appVersion: "145"
+    created: "2020-06-27T16:22:08.541413667+02:00"
+    description: Transmission Helm Chart
+    digest: 7237bbcdcb5bfa8f86144b97e28472d351dd53511136e0abd2d5b840a4097641
+    icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+    keywords:
+    - transmission
+    - helm
+    name: transmission
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/transmission-1.0.0/transmission-1.0.0.tgz
+    version: 1.0.0
+generated: "2020-06-27T15:23:24.825601992+02:00"
