@@ -2,14 +2,11 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "..fullname" . }}-watch
+  name: {{ include "transmission.fullname" . }}-watch
   labels:
-    app: {{ template "..name" . }}
-    chart: {{ template "..chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "transmission.labels" . | nindent 4 }}
 {{- if .Values.persistence.watch.labels }}
-{{ toYaml .Values.persistence.watch.labels | indent 4 }}
+    {{ toYaml .Values.persistence.watch.labels | nindent 4 }}
 {{- end }}
 spec:
   accessModes:

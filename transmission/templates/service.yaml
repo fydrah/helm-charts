@@ -1,53 +1,44 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "..fullname" . }}
+  name: {{ include "transmission.fullname" . }}
   labels:
-    app: {{ template "..name" . }}
-    chart: {{ template "..chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "transmission.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.web.type }}
 {{- if .Values.service.web.externalIPs }}
   externalIPs:
-{{ toYaml .Values.service.web.externalIPs | indent 4 }}
+    {{ toYaml .Values.service.web.externalIPs | nindent 4 }}
 {{- end }}
   ports:
-    - port: {{ .Values.service.web.port }}
-      targetPort: webui
+    - name: web
+      targetPort: web
+      port: {{ .Values.service.web.port }}
       protocol: TCP
-      name: webui
   selector:
-    app: {{ template "..name" . }}
-    release: {{ .Release.Name }}
+    {{- include "transmission.selectorLabels" . | nindent 4 }}
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "..fullname" . }}-peer
+  name: {{ include "transmission.fullname" . }}-peer
   labels:
-    app: {{ template "..name" . }}
-    chart: {{ template "..chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "transmission.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.peer.type }}
 {{- if .Values.service.peer.externalIPs }}
   externalIPs:
-{{ toYaml .Values.service.peer.externalIPs | indent 4 }}
+    {{ toYaml .Values.service.peer.externalIPs | nindent 4 }}
 {{- end }}
   ports:
     - name: peer-tcp
-      port: {{ .Values.service.peer.ports.tcp }}
       targetPort: peer-tcp
+      port: {{ .Values.service.peer.ports.tcp }}
       protocol: TCP
     - name: peer-udp
-      port: {{ .Values.service.peer.ports.udp }}
       targetPort: peer-udp
-      protocol: UDP
+      port: {{ .Values.service.peer.ports.udp }}
+      protocol: TCP
   selector:
-    app: {{ template "..name" . }}
-    release: {{ .Release.Name }}
+    {{- include "transmission.selectorLabels" . | nindent 4 }}

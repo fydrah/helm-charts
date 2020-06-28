@@ -2,15 +2,14 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "..fullname" . }}-downloads
+  name: {{ include "transmission.fullname" . }}-downloads
   labels:
-    app: {{ template "..name" . }}
-    chart: {{ template "..chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "transmission.labels" . | nindent 4 }}
 {{- if .Values.persistence.downloads.labels }}
-{{ toYaml .Values.persistence.downloads.labels | indent 4 }}
+    {{ toYaml .Values.persistence.downloads.labels | nindent 4 }}
 {{- end }}
+  annotations:
+    helm.sh/resource-policy: keep
 spec:
   accessModes:
     - {{ .Values.persistence.downloads.accessMode | quote }}

@@ -1,9 +1,14 @@
-apiVersion: v1
-appVersion: 2.94-r2-ls42
-description: Transmission Helm Chart
+apiVersion: v2
+
+version: 2.0.0
+appVersion: 3.00-r0-ls60
+
 name: transmission
-version: 1.6.0
+description: Transmission Helm Chart
+type: application
+
 icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+
 maintainer:
 - email: flav.hardy@gmail.com
   name: fydrah

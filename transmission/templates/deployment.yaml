@@ -1,28 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "..fullname" . }}
+  name: {{ include "transmission.fullname" . }}
   labels:
-    app: {{ template "..name" . }}
-    chart: {{ template "..chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "transmission.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "..name" . }}
-      release: {{ .Release.Name }}
+      {{- include "transmission.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       labels:
-        app: {{ template "..name" . }}
-        release: {{ .Release.Name }}
+        {{- include "transmission.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccount: {{ template "..fullname" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "transmission.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: PUID
@@ -30,7 +37,7 @@ spec:
             - name: PGID
               value: "{{ .Values.process.gid }}"
           ports:
-            - name: webui
+            - name: web
               containerPort: 9091
               protocol: TCP
             - name: peer-tcp
@@ -50,7 +57,7 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 2
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+            {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /config
               name: config
@@ -62,33 +69,33 @@ spec:
       - name: config
       {{- if .Values.persistence.config.enabled }}
         persistentVolumeClaim:
-          claimName: {{ .Values.persistence.config.existingClaim | default (printf "%s-%s" (include "..fullname" .) "config") }}
+          claimName: {{ .Values.persistence.config.existingClaim | default (printf "%s-%s" (include "transmission.fullname" .) "config") }}
       {{- else }}
         emptyDir: {}
       {{- end }}
       - name: downloads
       {{- if .Values.persistence.downloads.enabled }}
         persistentVolumeClaim:
-          claimName: {{ .Values.persistence.downloads.existingClaim | default (printf "%s-%s" (include "..fullname" .) "downloads") }}
+          claimName: {{ .Values.persistence.downloads.existingClaim | default (printf "%s-%s" (include "transmission.fullname" .) "downloads") }}
       {{- else }}
         emptyDir: {}
       {{- end }}
       - name: watch
       {{- if .Values.persistence.watch.enabled }}
         persistentVolumeClaim:
-          claimName: {{ .Values.persistence.watch.existingClaim | default (printf "%s-%s" (include "..fullname" .) "watch") }}
+          claimName: {{ .Values.persistence.watch.existingClaim | default (printf "%s-%s" (include "transmission.fullname" .) "watch") }}
       {{- else }}
         emptyDir: {}
       {{- end }}
-    {{- with .Values.nodeSelector }}
+      {{- with .Values.nodeSelector }}
       nodeSelector:
-{{ toYaml . | indent 8 }}
-    {{- end }}
-    {{- with .Values.affinity }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
       affinity:
-{{ toYaml . | indent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
       tolerations:
-{{ toYaml . | indent 8 }}
-    {{- end }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
