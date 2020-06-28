@@ -45,7 +45,7 @@ do
     fi
     mkdir -p .index-${UUID}
     cr index --package-path .deploy/ -i .index-${UUID}/index.yaml
-    yq m -i index.yaml .index-${UUID}/index.yaml
+    yq m -a -i index.yaml .index-${UUID}/index.yaml
     echo "Chart ${c}-${CVERSION} uploaded and indexed"
     rm -rf .index-${UUID}
   fi
