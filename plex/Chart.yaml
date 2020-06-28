@@ -1,6 +1,6 @@
 apiVersion: v2
 
-version: 2.0.0
+version: 2.1.0
 appVersion: 1.19.4.2935-79e214ead
 
 name: plex
