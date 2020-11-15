@@ -1,5 +1,7 @@
 # Helm charts collection
 
+[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/plex)](https://artifacthub.io/packages/search?repo=plex) [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/transmission)](https://artifacthub.io/packages/search?repo=transmission)
+
 ## Repository
 
 Helm charts are currently hosted on GitHub releases
