@@ -1,7 +1,7 @@
 apiVersion: v2
 
-version: 2.1.0
-appVersion: 1.19.4.2935-79e214ead
+version: 2.2.0
+appVersion: 1.19.5.3112-b23ab3896
 
 name: plex
 type: application
