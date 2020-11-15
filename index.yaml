@@ -133,6 +133,20 @@ entries:
     urls:
     - https://github.com/fydrah/helm-charts/releases/download/plex-2.1.0/plex-2.1.0.tgz
     version: 2.1.0
+  - apiVersion: v2
+    appVersion: 1.19.5.3112-b23ab3896
+    created: "2020-11-14T19:15:45.075714248-05:00"
+    description: Plex Helm Chart
+    digest: 212c637de8ade8a57d1790c1bdbe0d93a1eb1058294c0e1786ad13d26d467661
+    icon: https://raw.githubusercontent.com/plexinc/pms-docker/master/img/plex-server.png
+    keywords:
+    - plex
+    - helm
+    name: plex
+    type: application
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/plex-2.2.0/plex-2.2.0.tgz
+    version: 2.2.0
   transmission:
   - apiVersion: v1
     appVersion: 2.94-r2-ls42
@@ -239,4 +253,18 @@ entries:
     urls:
     - https://github.com/fydrah/helm-charts/releases/download/transmission-2.0.0/transmission-2.0.0.tgz
     version: 2.0.0
+  - apiVersion: v2
+    appVersion: 3.00-r0-ls60
+    created: "2020-11-14T19:15:55.813278228-05:00"
+    description: Transmission Helm Chart
+    digest: 81103591605e05ab82ce03daef82e91f195c07133d66a3123d18b7c558dd8986
+    icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+    keywords:
+    - transmission
+    - helm
+    name: transmission
+    type: application
+    urls:
+    - https://github.com/fydrah/helm-charts/releases/download/transmission-2.1.0/transmission-2.1.0.tgz
+    version: 2.1.0
 generated: "2020-06-27T15:23:24.825601992+02:00"
