@@ -39,11 +39,13 @@ process:
 service:
   externalIPs: []
   web:
+    annotations: {}
     type: ClusterIP
     port: 80
     externalIPs: []
 
   peer:
+    annotations: {}
     type: ClusterIP
     externalIPs: []
     ports:
